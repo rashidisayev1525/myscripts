@@ -1,8 +1,9 @@
 #!/bin/bash
 
-if true | openssl x509 -noout -dates -in /etc/letsencrypt/live/vm.rashidisayev.com/cert.pem 2>/dev/null | \
-  openssl x509 -noout -checkend 0; then
-  echo "Certificate is not expired"
+if openssl x509 -checkend 86400 -noout -in /etc/letsencrypt/live/vm.rashidisayev.com/cert.pem
+then
+  echo "Certificate is good for another day!"
 else
-  echo "Certificate is expired"
+  echo "Certificate has expired or will do so within 24 hours!"
+  echo "(or is invalid/not found)"
 fi
